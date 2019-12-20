@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/graffitidev/!svn/ver/46/trunk/flash/src/com/facebook/graph/core
+END
+FacebookLimits.as
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/graffitidev/!svn/ver/46/trunk/flash/src/com/facebook/graph/core/FacebookLimits.as
+END
+FacebookURLDefaults.as
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/graffitidev/!svn/ver/46/trunk/flash/src/com/facebook/graph/core/FacebookURLDefaults.as
+END
+AbstractFacebook.as
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/graffitidev/!svn/ver/46/trunk/flash/src/com/facebook/graph/core/AbstractFacebook.as
+END
+FacebookJSBridge.as
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/graffitidev/!svn/ver/46/trunk/flash/src/com/facebook/graph/core/FacebookJSBridge.as
+END

@@ -1,0 +1,1 @@
+package com.lessrain.project.view.components.sound {	/**	 * @author patrickjuchli	 */	public interface IGroupableSound {				function dispose():void;		function stop():void;		function get id():String;	}}

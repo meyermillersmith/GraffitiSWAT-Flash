@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/graffitidev/!svn/ver/74/trunk/flash/src/com/facebook/graph/net
+END
+FacebookBatchRequest.as
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/graffitidev/!svn/ver/92/trunk/flash/src/com/facebook/graph/net/FacebookBatchRequest.as
+END
+FacebookRequest.as
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/graffitidev/!svn/ver/46/trunk/flash/src/com/facebook/graph/net/FacebookRequest.as
+END
+AbstractFacebookRequest.as
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/graffitidev/!svn/ver/92/trunk/flash/src/com/facebook/graph/net/AbstractFacebookRequest.as
+END

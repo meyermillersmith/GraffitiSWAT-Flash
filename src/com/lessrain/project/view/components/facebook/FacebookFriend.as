@@ -1,0 +1,61 @@
+package com.lessrain.project.view.components.facebook {
+	import com.lessrain.project.view.utils.ObjectUtils;
+	import com.facebook.graph.Facebook;
+	import com.lessrain.debug.Debug;
+	/**
+	 * @author lessintern
+	 */
+	public class FacebookFriend{
+
+		private var _fbid : String;
+		private var _name : String;
+		private var _names : Array;
+		private var _picture : String;
+		
+		public function FacebookFriend(friend:Object){
+			_fbid = friend.id;
+			_name = friend.name;
+			_names = _name.split(' ');
+			trace("FRiend: "+ObjectUtils.inspect(friend));
+			getPictureUrl(friend.picture);
+			for (var i : int = 0; i < _names.length; i++) {
+				_names[i] = String(_names[i]).toLowerCase();
+			}
+		}
+
+		private function getPictureUrl(picture:Object) : void {
+			if (picture && picture.data){
+				_picture = picture.data.url;
+			}
+			if (!_picture || _picture == ''){
+				_picture = 'http://graph.facebook.com/'+_fbid+'/picture';
+			}
+		}
+		
+		public function startsWith(s:String):Boolean{
+			s = s.toLowerCase();
+			var found:Boolean;
+				for (var i : int = 0; i < _names.length; i++) {
+					found = String(_names[i]).indexOf(s) == 0;
+					if (found) break;
+				}
+			return found;
+		}
+
+		public function get picture() : String {
+			return _picture;
+		}
+
+		public function get name() : String {
+			return _name;
+		}
+
+		public function get fbid() : String {
+			return _fbid;
+		}
+		
+		public function toString() : String {
+			return _name;
+		}
+	}
+}

@@ -1,0 +1,71 @@
+9
+
+dir
+91
+https://lessrainberlin.svn.cloudforge.com/graffitidev/trunk/flash/src/com/lessrain/project
+https://lessrainberlin.svn.cloudforge.com/graffitidev
+
+
+
+2013-09-11T14:37:03.189725Z
+89
+lessrain
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+40dcd6ea-3022-4115-a414-8040f2a8ded5
+
+ApplicationFacade.as
+file
+
+
+
+
+2013-09-17T09:35:27.404000Z
+f4c9760dff938e30689a39afa2919853
+2013-04-19T12:57:47.685883Z
+85
+denise
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6302
+
+controller
+dir
+
+model
+dir
+
+view
+dir
+

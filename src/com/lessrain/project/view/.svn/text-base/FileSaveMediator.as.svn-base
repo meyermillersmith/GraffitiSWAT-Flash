@@ -1,0 +1,99 @@
+package com.lessrain.project.view {
+	import com.adobe.images.PNGEncoder;
+	import com.bytearray.JPEGEncoder;
+	import com.lessrain.debug.Debug;
+	import com.lessrain.project.ApplicationFacade;
+	import com.lessrain.project.model.ApplicationParamsProxy;
+	import com.lessrain.project.view.components.FileSaveDisplay;
+	import com.lessrain.util.CallDelay;
+
+	import org.puremvc.as3.multicore.interfaces.INotification;
+	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
+
+	import flash.display.BitmapData;
+	import flash.net.URLRequest;
+	import flash.net.URLRequestHeader;
+	import flash.net.URLRequestMethod;
+	import flash.net.navigateToURL;
+	import flash.utils.ByteArray;
+	import flash.utils.getQualifiedClassName;
+
+	
+	/**
+	 * @author torstenhartel
+	 */
+	public class FileSaveMediator extends Mediator {
+	
+		public static const NAME : String = getQualifiedClassName(FileSaveMediator);
+		private static const PNG : String = '.png';
+		private static const JPG : String = '.jpg';
+		private var _filename : String;
+		private var _fbid : String;
+		
+	
+		public function FileSaveMediator(fileSaveDisplay_:FileSaveDisplay) {
+			super(NAME,fileSaveDisplay_);
+		}
+	
+		override public function listNotificationInterests(): Array {
+			var interests : Array = new Array();
+			interests.push(ApplicationFacade.PREPARE_SAVE_IMAGE);
+			interests.push(ApplicationFacade.SAVE_IMAGE);
+			return interests;
+		}
+		
+		override public function handleNotification(notification_: INotification): void {
+			switch( notification_.getName()){
+				case ApplicationFacade.PREPARE_SAVE_IMAGE:
+					fileSaveDisplay.block();
+					CallDelay.call(sendReady,1000);
+					break;
+				case ApplicationFacade.SAVE_IMAGE:
+					if (!fileSaveDisplay.active) fileSaveDisplay.block();
+					if (notification_.getBody()){
+						saveBitmap(notification_.getBody() as BitmapData, notification_.getType());
+					} else {
+						fileSaveDisplay.hide(false);
+					}
+					break;
+				default :
+					break;
+			}
+		}
+
+		private function sendReady() : void {
+			Debug.trace('FileSaveMediator::sendReady:');
+			sendNotification(ApplicationFacade.SAVE_IMAGE_PREPARED);
+		}
+
+		private function saveBitmap(bitmapData_ : BitmapData, surface : String) : void {
+			var filetype:String = surface == "dudes"?PNG:JPG;
+			
+			var bytes : ByteArray = filetype == PNG?PNGEncoder.encode(bitmapData_):new JPEGEncoder(80).encode(bitmapData_);
+
+			_filename = 'graffiti_swat_'+surface+'_'+new Date().getTime()+filetype;
+			//_filename = 'graffiti_'+_fbid+'_'+new Date().getTime()+'_'+Math.round(Math.random()*999)+'.png';
+			var header:URLRequestHeader=new URLRequestHeader("Content-type","application/octet-stream");
+			var request:URLRequest = new URLRequest(ApplicationFacade.getProperty('downloadSrc')+'?name='+_filename);
+//		    var loader: URLLoader = new URLLoader();
+		    request.requestHeaders.push(header);
+		    request.method = URLRequestMethod.POST;
+		    request.data = bytes;
+			navigateToURL(request, "_blank");
+			fileSaveDisplay.hide(true);
+		}
+
+		protected function get fileSaveDisplay(): FileSaveDisplay {
+			return viewComponent as FileSaveDisplay;
+		}
+
+		override public function onRegister(): void {
+			var applicationParamsProxy : ApplicationParamsProxy = ApplicationParamsProxy(facade.retrieveProxy(ApplicationParamsProxy.NAME));
+			_fbid = applicationParamsProxy.getFacebookId();
+		}
+		
+		override public function onRemove(): void {
+		
+		}
+	}
+}
